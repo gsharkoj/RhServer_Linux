@@ -11,8 +11,8 @@ import (
 	"math/rand"
 	"net"
 	"strconv"
-	"test1/rh_enum"
-	"test1/rh_proc"
+	"./rh_enum"
+	"./rh_proc"
 )
 
 type Client struct {
