@@ -11,10 +11,8 @@ import (
 
 func Read4b_with_error(conn net.Conn, buf []byte) error {
 
-	//buf := make([]byte, 4)
 	_, err := io.ReadFull(conn, buf)
 	if err != nil {
-		//fmt.Println("Error read command:", err)
 		return err
 	}
 	return nil
@@ -25,9 +23,7 @@ func Read4b(conn net.Conn) (int, error) {
 	// 4b - command
 	buf := make([]byte, 4)
 	_, err := io.ReadFull(conn, buf)
-	//err := Read4b_with_error(conn, buf)
 	if err != nil {
-		//fmt.Println("Error read command:", err)
 		return -1, err
 	}
 
@@ -48,7 +44,6 @@ func ReadCommand(conn net.Conn) (int, error) {
 	if err != nil {
 		return command, err
 	}
-	//fmt.Println("Read command:", strconv.Itoa(command))
 	return command, nil
 }
 
@@ -74,7 +69,6 @@ func ReadData(conn net.Conn) ([]byte, int, error) {
 	len, err = io.ReadFull(conn, buf)
 
 	if err != nil {
-		//fmt.Println("Error read data:", err)
 		len = -1
 		return data, len, err
 	}
@@ -104,7 +98,6 @@ func GetSimpleData_Int32Mas(cmd rh_enum.Command, mas []int32) []byte {
 	// записываем данные
 	for _, val := range mas {
 		binary.Write(buf, binary.LittleEndian, val)
-		//fmt.Println("GetSimpleData_Int32Mas: ", val)
 	}
 
 	return buf.Bytes()
@@ -122,7 +115,6 @@ func GetSimpleData_ByteMas(cmd rh_enum.Command, mas []byte) []byte {
 	binary.Write(buf, binary.LittleEndian, mas)
 
 	b := buf.Bytes()
-	//fmt.Println("len data cmd"+strconv.Itoa(int(cmd)), strconv.Itoa(len(b)))
 	return b
 }
 func Proc_GetConnection(data []byte) []int32 {
@@ -135,7 +127,6 @@ func Proc_GetConnection(data []byte) []int32 {
 	mas[0] = val // id_client
 	binary.Read(buf, binary.LittleEndian, &val)
 	mas[1] = val // byte_per_pixel
-	//fmt.Println("Proc_GetConnection [0,1]:"+strconv.Itoa(int(mas[0])), strconv.Itoa(int(mas[1])))
 	return mas
 }
 
